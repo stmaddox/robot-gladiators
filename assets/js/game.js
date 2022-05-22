@@ -96,15 +96,19 @@ var startGame = function() {
       enemyHealth = 50;
 
       fight(pickedEnemyName);
+          // if we are not at the last enemy in the array
+      if (i < enemyNames.length - 1) {
+        shop ();
+      }
     }
     else {
       window.alert("You have lost your robot in battle! Game Over!");
       break;
     }
+
     //endGame ();
   }
 };
-
 var endGame = function () {
   window.alert("The game has now ended. Let's see how you did!");
 }
@@ -112,9 +116,14 @@ var playAgainConfirm = window.confirm("Would you like to play again?");
 
 if (playAgainConfirm) {
   startGame ();
-
 } else {
     window.alert("Thank you for playing Robot Gladiators! Come back soon!");
 }
+
+var shop = function () {
+  console.log("entered the shop");
+} 
+  
+
 
 startGame ();
