@@ -97,7 +97,10 @@ var startGame = function() {
 
       fight(pickedEnemyName);
           // if we are not at the last enemy in the array
-      if (i < enemyNames.length - 1) {
+      if (playerHealth > 0 && i < enemyNames.length - 1) {
+        var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
+        
+        if (storeConfirm) {
         shop();
       }
     }
@@ -105,7 +108,7 @@ var startGame = function() {
       window.alert("You have lost your robot in battle! Game Over!");
       break;
     }
-
+    }
     //endGame ();
   }
 };
@@ -114,8 +117,53 @@ var endGame = function() {
 }
 
 var shop = function() {
-  console.log("entered the shop");
-} 
+  //ask player what they'd like to do
+  var shopOptionPrompt = window.prompt(
+    "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+  );
+  switch (shopOptionPrompt) {
+    case "REFILL":
+    case "refill":
+      if (playerMoney >=7) {
+      window.alert("Refilling player's health by 20 for 7 dollars.");
+
+      //increase health and decrease money 
+      playerHealth = playerHealth + 20;
+      playerMoney = playerMoney - 7;
+      }
+      else {
+        window.alert("You don't have enough money!");
+      }
+      break;
+    
+    case "UPGRADE":
+    case "upgrade":
+      if (playerMoney >=7) {
+      window.alert("Upgrading player's attack by 6 for 7 dollars.");
+
+      //increase attack and decrease money
+      playerAttack = playerAttack + 6;
+      playerMoney = playerMoney - 7;
+      }
+      else {
+        window.alert("You don't have enough money!");
+      }
+      break;
+      
+    case "LEAVE":
+    case "leave":
+      window.alert("Leaving the store.");
+
+      //do nothing, so function will end
+      break;
+    default: 
+      window.alert("You did not pick a valid option. Try again.");
+
+      //call shop () again to force player to pick a valid option
+      shop();
+      break;
+  }
+}; 
 
 var playAgainConfirm = window.confirm("Would you like to play again?");
 
@@ -126,7 +174,4 @@ if (playAgainConfirm) {
 }
 
 
-  
-
-
-startGame();
+  startGame();
